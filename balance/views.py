@@ -2,7 +2,9 @@ from . import app
 
 @app.route('/')
 def inicio():
-    return 'Hola.'
+    return (f'La ruta del archivo de datos es: {app.config["RUTA"]}<br>'
+            f'Secret key: {app.config["SECRET_KEY"]}')
+
 
 @app.route('/purchase')
 def formulario():
