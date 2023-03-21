@@ -1,15 +1,31 @@
-from . import app
+from flask import render_template
+import json
+import requests
+from . import app, APIKEY
+from .models import APIConnect, DBConnect
+
+RUTA = app.config.get('RUTA')
+
 
 @app.route('/')
-def inicio():
-    return (f'La ruta del archivo de datos es: {app.config["RUTA"]}<br>'
-            f'Secret key: {app.config["SECRET_KEY"]}')
+def home():
+    db = DBConnect(RUTA)
+    mostrar_inversiones = db.mostrarInversiones()
+    for inv in mostrar_inversiones:
+        monedaFrom = inv.get('monedaFrom')
+        monedaTo = inv.get('monedaTo')
+        conexionApi = APIConnect()
+        precioUnitario = conexionApi.consultar_cambio(monedaFrom, monedaTo)
+        # inv['precioUnidad'] = precioUnitario
+        # precioAñadido = json.dump
+    
+    return render_template('inicio.html', inv=mostrar_inversiones) #inv=precioAñadido)
 
 
 @app.route('/purchase')
 def formulario():
-    return 'Formulario compra, venta o intercambio.'
+    return render_template('form.html')
 
 @app.route('/status')
 def status():
-    return 'Estado de la inversion'
+    return render_template('status.html')
