@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+
+{% block contenido %}
+<h1>Lista de inversiones</h1>
+
+
+<section class="seccion-movimientos">
+  <table class="table table-striped">
+    <thead class="bg-warning">
+      <tr>
+        <th class="text-white">Fecha</th>
+        <th class="text-white">Hora</th>
+        <th class="text-white">Moneda origen</th>
+        <th class="text-white">Cantidad a invertir</th>
+        <th class="text-white">Moneda destino</th>
+        <th class="text-white">Valor de la conversión</th>
+        <th class="text-white">Precio unitario</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpo-tabla">
+      {% for i in inv %}
+      <tr>
+        <td>{{i.date}}</td>
+        <td>{{i.time}}</td>
+        <td>{{i.monedaFrom}}</td>
+        <td>{{i.cantidadFrom}}</td>
+        <td>{{i.monedaTo}}</td>
+        <td>{{i.cantidadTo}}</td>
+        <!-- <td>{{i.precioUnitario}}</td> -->
+      </tr>
+      {% endfor %}
+
+      
+
+    </tbody>
+  </table>
+
+  <form action="">
+    <div class="mb-3">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select>
+    </div>
+  </form>
+
+
+</section>
+
+
+
+
+
+
+{% endblock contenido %}
+
+
+
+
