@@ -1,2 +1,46 @@
 {% extends 'base.html' %}
 
+{% block scripts %}
+<script src="/static/js/form.js"></script>
+{% endblock scripts %}
+
+{% block contenido %}
+<h1>Formulario</h1>
+<form novalidate id="form">
+  <div class="mb-3">
+    <select class="form-select" aria-label="Default select example">
+      <label for="">Moneda origen:</label>
+      <option selected>Elige una moneda</option>
+      <option value="1">EUR</option>
+      <option value="2">BTC</option>
+      <option value="3">ETH</option>
+      <option value="4">USDT</option>
+      <option value="5">ADA</option>
+      <option value="6">SOL</option>
+      <option value="7">XRP</option>
+      <option value="8">DOT</option>
+      <option value="9">DOGE</option>
+      <option value="10">SHIB</option>
+    </select>
+  </div>
+  <div class="mb3">
+    <select class="form-select" aria-label="Default select example">
+      <option selected>Elige una moneda</option>
+      <option value="1">EUR</option>
+      <option value="2">BTC</option>
+      <option value="3">ETH</option>
+      <option value="4">USDT</option>
+      <option value="5">ADA</option>
+      <option value="6">SOL</option>
+      <option value="7">XRP</option>
+      <option value="8">DOT</option>
+      <option value="9">DOGE</option>
+      <option value="10">SHIB</option>
+    </select>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="text" class="form-control" id="floatingInput" placeholder="1000">
+    <label for="floatingInput">Introduce la cantidad que desea invertir</label>
+  </div>
+</form>
+{% endblock contenido %}
