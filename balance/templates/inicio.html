@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
+{% block scripts %}
+<script src="/static/js/balance.js"></script>
+{% endblock scripts %}
 
 {% block contenido %}
 <h1>Lista de inversiones</h1>
@@ -19,24 +22,10 @@
       </tr>
     </thead>
     <tbody id="cuerpo-tabla">
-      {% for i in inv %}
-      <tr>
-        <td>{{i.date}}</td>
-        <td>{{i.time}}</td>
-        <td>{{i.monedaFrom}}</td>
-        <td>{{i.cantidadFrom}}</td>
-        <td>{{i.monedaTo}}</td>
-        <td>{{i.cantidadTo}}</td>
-        <!-- <td>{{i.precioUnitario}}</td> -->
-      </tr>
-      {% endfor %}
-
-      
-
     </tbody>
   </table>
 
-  <form action="">
+  <!-- <form action="">
     <div class="mb-3">
       <select class="form-select" aria-label="Default select example">
         <option selected>Open this select menu</option>
@@ -45,7 +34,7 @@
         <option value="3">Three</option>
       </select>
     </div>
-  </form>
+  </form> -->
 
 
 </section>
