@@ -33,19 +33,19 @@ class DBConnect:
 
     def __init__(self, ruta):
         self.ruta = ruta
-    
-    def mostrarInversiones(self):
-        consulta = 'SELECT date, time, monedaFrom, cantidadFrom, monedaTo, cantidadTo FROM Movimientos'
+
+    def consultaSQL(self, consulta):
         conexion = sqlite3.connect(self.ruta)
         cursor = conexion.cursor()
         cursor.execute(consulta)
         datos = cursor.fetchall()
-
+        
         self.inversiones = []
         nombres_columna = []
+
         for columna in cursor.description:
             nombres_columna.append(columna[0])
-
+        
         for dato in datos:
             indice = 0
             inversion = {}
@@ -58,4 +58,34 @@ class DBConnect:
         conexion.close()
 
         return self.inversiones
+    
+    # def mostrarInversiones(self):
+    #     consulta = 'SELECT date, time, monedaFrom, cantidadFrom, monedaTo, cantidadTo FROM Movimientos'
+    #     conexion = sqlite3.connect(self.ruta)
+    #     cursor = conexion.cursor()
+    #     cursor.execute(consulta)
+    #     datos = cursor.fetchall()
+
+    #     self.inversiones = []
+    #     nombres_columna = []
+    #     for columna in cursor.description:
+    #         nombres_columna.append(columna[0])
+
+    #     for dato in datos:
+    #         indice = 0
+    #         inversion = {}
+    #         for nombre in nombres_columna:
+    #             inversion[nombre] = dato[indice]
+    #             indice += 1
+
+    #         self.inversiones.append(inversion)
+        
+    #     conexion.close()
+
+    #     return self.inversiones
+
+    
+
+
+
 
