@@ -1,1 +1,82 @@
 {% extends 'base.html' %}
+
+{% block scripts %}
+<script src="/static/js/status.js"></script>
+{% endblock scripts %}
+
+{% block contenido %}
+<h1>Tabla de inversiones</h1>
+
+<section id="section-status">
+  <div class="card">
+    <div class="card-header">
+      <h2>Estado de las inversiones</h2>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="card-body col-sm-1 col-xs-12" id="invertido">
+          <h6 class="card-title">Invertido</h6>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="valor-total">
+          <h6 class="card-title">Valor total de mis cryptos (€)</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="valor-actual">
+          <h6 class="card-title">Valor actual</h6>
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="card">
+    <div class="card-header">
+      <h2>My crypto wallet</h2>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="card-body col-sm-1 col-xs-12" id="btc">
+          <h6 class="card-title">BTC</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="eth">
+          <h6 class="card-title">ETH</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="usdt">
+          <h6 class="card-title">USDT</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="ada">
+          <h6 class="card-title">ADA</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="sol">
+          <h6 class="card-title">SOL</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="xrp">
+          <h6 class="card-title">XRP</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="dot">
+          <h6 class="card-title">DOT</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="doge">
+          <h6 class="card-title">DOGE</h6>
+          <p class="card-text"></p>
+        </div>
+        <div class="card-body col-sm-1 col-xs-12" id="shib">
+          <h6 class="card-title">SHIB</h6>
+          <p class="card-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock contenido %}
