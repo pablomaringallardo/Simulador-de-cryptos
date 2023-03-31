@@ -42,3 +42,17 @@ header {
 }
 
 
+#form {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+.titulos {
+    text-align: center;
+}
+
+.pie-pagina {
+    padding: 20px;
+    border-top: solid thin #ffc107;
+    
+}

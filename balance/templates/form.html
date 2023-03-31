@@ -5,44 +5,52 @@
 {% endblock scripts %}
 
 {% block contenido %}
-<h1>Formulario</h1>
+
+<h1 class="titulos">Formulario</h1>
+
 <form novalidate id="form">
+  {{ form.csrf_token }}
+  {{ form.id }}
+  
+  <!-- MonedaFrom -->
   <div class="mb-3">
-    <select class="form-select" aria-label="Default select example">
-      <label for="">Moneda origen:</label>
-      <option selected>Elige una moneda</option>
-      <option value="1">EUR</option>
-      <option value="2">BTC</option>
-      <option value="3">ETH</option>
-      <option value="4">USDT</option>
-      <option value="5">ADA</option>
-      <option value="6">SOL</option>
-      <option value="7">XRP</option>
-      <option value="8">DOT</option>
-      <option value="9">DOGE</option>
-      <option value="10">SHIB</option>
-    </select>
+      {{ form.monedaFrom.label }}
+      {{ form.monedaFrom(class="form-select") }}
+      {% if form.monedaFrom.errors %}
+            {% for error in form.monedaFrom.errors%}
+                <p>{{ error }}</p>
+            {% endfor %}
+      {% endif %}
   </div>
-  <div class="mb3">
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Elige una moneda</option>
-      <option value="1">EUR</option>
-      <option value="2">BTC</option>
-      <option value="3">ETH</option>
-      <option value="4">USDT</option>
-      <option value="5">ADA</option>
-      <option value="6">SOL</option>
-      <option value="7">XRP</option>
-      <option value="8">DOT</option>
-      <option value="9">DOGE</option>
-      <option value="10">SHIB</option>
-    </select>
-  </div>
+
+  <!-- CantidadFrom -->
   <div class="form-floating mb-3">
-    <input type="text" class="form-control" id="floatingInput" placeholder="1000">
-    <label for="floatingInput">Introduce la cantidad que desea invertir</label>
+      {{ form.cantidadFrom(class="form-control") }}
+      <label for="floatingInput">{{ form.cantidadFrom.label }}</label>
+      {% if form.cantidadFrom.errors %}
+            {% for error in form.cantidadFrom.errors%}
+                <p>{{ error }}</p>
+            {% endfor %}
+      {% endif %}
   </div>
-  <button type="button" class="btn btn-warning">Invertir</button>
-  <button type="button" class="btn btn-warning">Calcular</button>
+  
+  <!-- MonedaTo -->
+  <div class="mb3">
+    {{ form.monedaTo.label }}
+    {{ form.monedaTo(class="form-select") }}
+    {% if form.monedaTo.errors %}
+            {% for error in form.monedaTo.errors%}
+                <p>{{ error }}</p>
+            {% endfor %}
+    {% endif %}
+  </div>
+
+  <!-- Boton Calcular -->
+  <div>{{ form.botonCalcular(class="btn btn-warning", id="boton-calcular") }}</div>
+
+  <!-- Boton Enviar -->
+  <div>{{ form.botonEnviar(class="btn btn-warning", id="boton-enviar") }}</div>
+
+
 </form>
 {% endblock contenido %}
