@@ -102,6 +102,8 @@ def mostrar_estado():
         estados['total_euros_invertidos'] = total_euros_invertidos
         estados['valor_total_cryptos'] = valor_actual
         estados['valor_actual'] =  saldo_euros_invertidos + total_euros_invertidos + valor_actual
+        
+        
         # Cryptos en posesión
         
         for crypto in cryptos:
@@ -109,10 +111,7 @@ def mostrar_estado():
             moneda_invertida = 0
             for inv in inversiones:
                 if inv['monedaTo'] == crypto:
-                    print(inv['monedaTo'])
                     moneda_obtenida += inv['cantidadTo']
-                    print(inv['cantidadTo'])
-                    print(moneda_obtenida)
                 if inv['monedaFrom'] == crypto:
                     moneda_invertida += inv['cantidadFrom']
                     
@@ -141,3 +140,7 @@ def mostrar_estado():
         status_code = 500
 
     return jsonify(resultado), status_code
+
+@app.route('/api/v1/invertir', methods=['POST'])
+def invertir():
+    pass
