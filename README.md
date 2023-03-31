@@ -40,7 +40,8 @@ Proyecto final BC14: Pablo Marín Gallardo
 
 5. Editar el archivo `.env` y cambiar los valores de
    entorno necesarios. Por motivos de seguridad, dejar
-   la variable `DEBUG` con el valor `False`.
+   la variable `DEBUG` con el valor `False`. Introduce
+   también tu SECRET KEY
 
 6. Con el entorno virtual activo, lanzar la aplicación
 
