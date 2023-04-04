@@ -10,14 +10,17 @@ RUTA = app.config.get('RUTA')
 def home():
     return render_template('inicio.html')
 
+
 @app.route('/purchase')
 def formulario():
     formulario = CryptoForm()
     return render_template('form.html', form=formulario)
 
+
 @app.route('/status')
 def status():
     return render_template('status.html')
+
 
 @app.route('/api/v1/inversiones')
 def mostrar_inversiones():
@@ -52,8 +55,9 @@ def mostrar_inversiones():
             'message': 'Error interno del sistema.'
         }
         status_code = 500
-    
+
     return jsonify(resultado), status_code
+
 
 @app.route('/api/v1/estado')
 def mostrar_estado():
@@ -70,12 +74,13 @@ def mostrar_estado():
                 total_euros_invertidos += inv['cantidadFrom']
             if inv['monedaTo'] == 'EUR':
                 euros_atrapados += inv['cantidadTo']
-        
+
         # Saldo de euros invertidos
         saldo_euros_invertidos = euros_atrapados - total_euros_invertidos
 
         # Valor actual
-        cryptos = ['BTC', 'ETH', 'USDT', 'ADA', 'SOL', 'XRP', 'DOT', 'DOGE', 'SHIB']
+        cryptos = ['BTC', 'ETH', 'USDT', 'ADA',
+                   'SOL', 'XRP', 'DOT', 'DOGE', 'SHIB']
 
         valor_actual = 0
         for crypto in cryptos:
@@ -86,25 +91,26 @@ def mostrar_estado():
                     suma_cantidadTo += inv['cantidadTo']
                 elif inv['monedaFrom'] == crypto:
                     suma_cantidadFrom += inv['cantidadFrom']
-                
+
                 total_crypto = suma_cantidadTo - suma_cantidadFrom
 
                 if inv['monedaTo'] == crypto or inv['monedaFrom'] == crypto:
                     conexionAPI = APIConnect()
-                    consultar_cambio = conexionAPI.consultar_cambio(crypto, 'EUR')
+                    consultar_cambio = conexionAPI.consultar_cambio(
+                        crypto, 'EUR')
 
                 cambio = consultar_cambio * total_crypto
 
                 valor_actual += cambio
-        
+
         estados = {}
         estados['total_euros_invertidos'] = total_euros_invertidos
         estados['valor_total_cryptos'] = valor_actual
-        estados['valor_actual'] =  saldo_euros_invertidos + total_euros_invertidos + valor_actual
-        
-        
+        estados['valor_actual'] = saldo_euros_invertidos + \
+            total_euros_invertidos + valor_actual
+
         # Cryptos en posesión
-        
+
         for crypto in cryptos:
             moneda_obtenida = 0
             moneda_invertida = 0
@@ -113,11 +119,9 @@ def mostrar_estado():
                     moneda_obtenida += inv['cantidadTo']
                 if inv['monedaFrom'] == crypto:
                     moneda_invertida += inv['cantidadFrom']
-                    
+
             total_moneda = moneda_obtenida - moneda_invertida
             estados[crypto] = total_moneda
-
-
 
         if estados:
             resultado = {
@@ -140,9 +144,45 @@ def mostrar_estado():
 
     return jsonify(resultado), status_code
 
-@app.route('/api/v1/invertir', methods=['POST'])
-def invertir():
-    pass
-    # try:
-    #     json = request.get_json()
-    #     form = CryptoForm
+
+@app.route('/api/v1/calcular', methods=['GET', 'POST'])
+def conversion():
+    try:
+        json = request.get_json()
+        form = CryptoForm(data=json)
+
+        if form.validate():
+            monedaFrom = form.monedaFrom.data
+            print('MF', monedaFrom)
+            cantidadFrom = form.cantidadFrom.data
+            print('CF', cantidadFrom)
+            monedaTo = form.monedaTo.data
+            print('MT', monedaTo)
+
+            conexionApi = APIConnect()
+            cambio = conexionApi.consultar_cambio(monedaFrom, monedaTo)
+            print('cambio', cambio)
+            cantidadTo = cantidadFrom * cambio
+
+            resultado = {
+                'status': 'succes',
+                'results': cantidadTo
+            }
+            status_code = 200
+
+        else:
+            resultado = {
+                'status': 'error',
+                'message': 'Los datos no son válidos.'
+            }
+            status_code = 400
+    except:
+        resultado = {
+            'status': 'error',
+            'message': 'Error desconocido del servidor.'
+        }
+        status_code = 500
+
+    print(resultado)
+
+    return jsonify(resultado), status_code
