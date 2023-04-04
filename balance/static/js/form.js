@@ -24,4 +24,22 @@ function sendFormCalculate(event) {
     formData.forEach((value, key) => jsonData[key] = value);
     console.log(jsonData);
 
-}
+    fetch('http://127.0.0.1:5000/api/v1/calcular', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+    }).then(
+        response => response.json
+    ).then(
+        result => console.log('Resultado:', result)
+    ).then(
+        data => {
+            cambio = JSON.stringify(data);
+            console.log(cambio)
+        }
+    ).catch(
+        (error) => console.error('ERROR!', error)
+    );
+};
