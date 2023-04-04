@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block scripts %}
-<script src="/static/js/form.js"></script>
+<script defer src="/static/js/form.js"></script>
 {% endblock scripts %}
 
 {% block contenido %}
 
 <h1 class="titulos">Formulario</h1>
 
-<form novalidate id="form">
+<form novalidate id="inv-form">
   {{ form.csrf_token }}
   {{ form.id }}
   

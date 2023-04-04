@@ -1,5 +1,4 @@
-from flask import jsonify, render_template
-import requests
+from flask import jsonify, render_template, request
 from . import app, APIKEY
 from .forms import CryptoForm
 from .models import APIConnect, DBConnect
@@ -144,3 +143,6 @@ def mostrar_estado():
 @app.route('/api/v1/invertir', methods=['POST'])
 def invertir():
     pass
+    # try:
+    #     json = request.get_json()
+    #     form = CryptoForm
