@@ -14,7 +14,6 @@ function sendForm(event) {
 }
 
 function sendFormCalculate(event) {
-    alert('Calcular datos');
     event.preventDefault()
 
     const formData = new FormData(form);
@@ -22,6 +21,8 @@ function sendFormCalculate(event) {
     const jsonData = {};
 
     formData.forEach((value, key) => jsonData[key] = value);
+    const monedaTo = jsonData.monedaTo
+    console.log(monedaTo);
     console.log(jsonData);
 
     fetch('http://127.0.0.1:5000/api/v1/calcular', {
@@ -31,13 +32,15 @@ function sendFormCalculate(event) {
         },
         body: JSON.stringify(jsonData)
     }).then(
-        response => response.json
+        (response) => { return response.json(); }
     ).then(
-        result => console.log('Resultado:', result)
-    ).then(
-        data => {
-            cambio = JSON.stringify(data);
-            console.log(cambio)
+        (data) => {
+            console.log('Resultado:', data.results);
+            const cambio = data.results.toFixed(4)
+            document.getElementById('cantidadTo').textContent = 'Usted recibirá ' + cambio + ' ' + monedaTo;
+            // let divResultado = document.createElement('div');
+            // divResultado.textContent = 'Usted recibirá ' + cambio + ' ' + monedaTo;
+            // document.getElementById('inv-form').appendChild(divResultado);
         }
     ).catch(
         (error) => console.error('ERROR!', error)

@@ -9,47 +9,49 @@
 <h1 class="titulos">Formulario</h1>
 
 <form novalidate id="inv-form">
-  {{ form.csrf_token }}
-  {{ form.id }}
-  
-  <!-- MonedaFrom -->
-  <div class="mb-3">
-      {{ form.monedaFrom.label }}
-      {{ form.monedaFrom(class="form-select") }}
-      {% if form.monedaFrom.errors %}
-            {% for error in form.monedaFrom.errors%}
-                <p>{{ error }}</p>
-            {% endfor %}
-      {% endif %}
-  </div>
+    {{ form.csrf_token }}
+    {{ form.id }}
 
-  <!-- CantidadFrom -->
-  <div class="form-floating mb-3">
-      {{ form.cantidadFrom(class="form-control") }}
-      <label for="floatingInput">{{ form.cantidadFrom.label }}</label>
-      {% if form.cantidadFrom.errors %}
-            {% for error in form.cantidadFrom.errors%}
-                <p>{{ error }}</p>
-            {% endfor %}
-      {% endif %}
-  </div>
-  
-  <!-- MonedaTo -->
-  <div class="mb3">
-    {{ form.monedaTo.label }}
-    {{ form.monedaTo(class="form-select") }}
-    {% if form.monedaTo.errors %}
-            {% for error in form.monedaTo.errors%}
-                <p>{{ error }}</p>
-            {% endfor %}
-    {% endif %}
-  </div>
+    <!-- MonedaFrom -->
+    <div class="mb-3">
+        {{ form.monedaFrom.label }}
+        {{ form.monedaFrom(class="form-select") }}
+        {% if form.monedaFrom.errors %}
+        {% for error in form.monedaFrom.errors%}
+        <p>{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
 
-  <!-- Boton Calcular -->
-  <div>{{ form.botonCalcular(class="btn btn-warning", id="boton-calcular") }}</div>
+    <!-- CantidadFrom -->
+    <div class="form-floating mb-3">
+        {{ form.cantidadFrom(class="form-control") }}
+        <label for="floatingInput">{{ form.cantidadFrom.label }}</label>
+        {% if form.cantidadFrom.errors %}
+        {% for error in form.cantidadFrom.errors%}
+        <p>{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
 
-  <!-- Boton Enviar -->
-  <div>{{ form.botonEnviar(class="btn btn-warning", id="boton-enviar") }}</div>
+    <!-- MonedaTo -->
+    <div class="mb3">
+        {{ form.monedaTo.label }}
+        {{ form.monedaTo(class="form-select") }}
+        {% if form.monedaTo.errors %}
+        {% for error in form.monedaTo.errors%}
+        <p>{{ error }}</p>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Boton Calcular -->
+    <div>{{ form.botonCalcular(class="btn btn-warning", id="boton-calcular") }}</div>
+
+    <div class="mb3" id="cantidadTo"></div>
+
+    <!-- Boton Enviar -->
+    <div>{{ form.botonEnviar(class="btn btn-warning", id="boton-enviar") }}</div>
 
 
 </form>
