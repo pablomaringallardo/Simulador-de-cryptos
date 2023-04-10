@@ -161,7 +161,7 @@ def conversion():
             cantidadTo = cantidadFrom * cambio
 
             resultado = {
-                'status': 'succes',
+                'status': 'success',
                 'results': cantidadTo
             }
             status_code = 200

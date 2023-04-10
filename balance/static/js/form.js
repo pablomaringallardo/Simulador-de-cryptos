@@ -22,10 +22,12 @@ function sendFormCalculate(event) {
 
     formData.forEach((value, key) => jsonData[key] = value);
     const monedaTo = jsonData.monedaTo
-    console.log(monedaTo);
-    console.log(jsonData);
+    console.log('hola', monedaTo);
 
-    fetch('http://127.0.0.1:5000/api/v1/calcular', {
+    if (jsonData.monedaFrom === jsonData.monedaTo) {
+        alert('No puedes invertir a la misma moneda.')
+    } else {
+        fetch('http://127.0.0.1:5000/api/v1/calcular', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -43,4 +45,7 @@ function sendFormCalculate(event) {
     ).catch(
         (error) => console.error('ERROR!', error)
     );
+
+}
+    
 };
