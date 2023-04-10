@@ -38,9 +38,7 @@ function sendFormCalculate(event) {
             console.log('Resultado:', data.results);
             const cambio = data.results.toFixed(4)
             document.getElementById('cantidadTo').textContent = 'Usted recibirá ' + cambio + ' ' + monedaTo;
-            // let divResultado = document.createElement('div');
-            // divResultado.textContent = 'Usted recibirá ' + cambio + ' ' + monedaTo;
-            // document.getElementById('inv-form').appendChild(divResultado);
+            botonEnviar.classList.remove('hidden');
         }
     ).catch(
         (error) => console.error('ERROR!', error)

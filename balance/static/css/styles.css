@@ -56,3 +56,7 @@ header {
     border-top: solid thin #ffc107;
     
 }
+
+.hidden {
+    display: none !important;
+}

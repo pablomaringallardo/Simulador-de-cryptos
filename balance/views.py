@@ -153,15 +153,11 @@ def conversion():
 
         if form.validate():
             monedaFrom = form.monedaFrom.data
-            print('MF', monedaFrom)
             cantidadFrom = form.cantidadFrom.data
-            print('CF', cantidadFrom)
             monedaTo = form.monedaTo.data
-            print('MT', monedaTo)
 
             conexionApi = APIConnect()
             cambio = conexionApi.consultar_cambio(monedaFrom, monedaTo)
-            print('cambio', cambio)
             cantidadTo = cantidadFrom * cambio
 
             resultado = {
