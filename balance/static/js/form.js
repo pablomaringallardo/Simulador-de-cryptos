@@ -5,7 +5,6 @@ botonEnviar.addEventListener('click', sendForm);
 botonCalcular.addEventListener('click', sendFormCalculate);
 
 function sendForm(event) {
-    alert('Formulario enviado');
     event.preventDefault();
     const formData = new FormData(form);
     console.log('formData', formData);
@@ -52,7 +51,13 @@ function sendFormCalculate(event) {
         },
         body: JSON.stringify(jsonData)
     }).then(
-        (response) => { return response.json(); }
+        (response) => { 
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('No tienes suficientes monedas para realizar la inversión.');
+            }
+        }
     ).then(
         (data) => {
             console.log('Resultado:', data.results);
@@ -61,7 +66,17 @@ function sendFormCalculate(event) {
             botonEnviar.classList.remove('hidden');
         }
     ).catch(
-        (error) => console.error('ERROR!', error)
+        (error) => {
+            console.error('ERROR!', error);
+            document.getElementById('error-message').textContent = error.message;
+            document.getElementById("error-message").classList.add('alert', 'alert-danger');
+            document.getElementById('error-message').setAttribute('role', 'alert');
+            setTimeout(() => {
+            document.getElementById('error-message').textContent = ''; // Eliminamos el mensaje de error después de 5 segundos
+            document.getElementById('error-message').classList.remove('alert', 'alert-danger');
+            document.getElementById('error-message').removeAttribute('role');
+            }, 8000); // Esperamos 5 segundos (5000 milisegundos) antes de eliminar el mensaje de error
+        }
     );
 
 }
