@@ -1,4 +1,6 @@
+from datetime import datetime
 from flask import jsonify, render_template, request
+import json
 from . import app, APIKEY
 from .forms import CryptoForm
 from .models import APIConnect, DBConnect
@@ -147,11 +149,13 @@ def mostrar_estado():
 
 @app.route('/api/v1/calcular', methods=['GET', 'POST'])
 def conversion():
+
     try:
         json = request.get_json()
         form = CryptoForm(data=json)
 
         if form.validate():
+            
             monedaFrom = form.monedaFrom.data
             cantidadFrom = form.cantidadFrom.data
             monedaTo = form.monedaTo.data
@@ -181,4 +185,45 @@ def conversion():
 
     print(resultado)
 
+    return jsonify(resultado), status_code
+
+@app.route('/api/v1/agregar', methods=['GET', 'POST'])
+def agregar_inversion():
+    try:
+        json = request.get_json()
+        db = DBConnect(RUTA)
+        consulta = 'INSERT INTO Movimientos (date, time, monedaFrom, cantidadFrom, monedaTo, cantidadTo) VALUES (?, ?, ?, ?, ?, ?)'
+        fecha = datetime.now()
+        fecha_formateada = fecha.strftime('%Y-%m-%d')
+        hora = datetime.now().strftime('%H:%M')
+        params = (
+            fecha_formateada,
+            hora,
+            json['monedaFrom'],
+            json['cantidadFrom'],
+            json['monedaTo'],
+            json['cantidadTo']
+        )
+        isSuccess = db.consultaConParametros(consulta, params)
+
+        if isSuccess:
+            resultado = {
+                'status': 'success',
+                'message': 'La inversión se ha realizado con éxito.'
+            }
+            status_code = 201
+        else:
+            resultado = {
+                'status': 'error',
+                'message': 'Error desconocido del servidor'
+            }
+            status_code = 500
+    
+    except:
+        resultado = {
+            'status': 'error',
+            'message': 'Error desconocido del servidor'
+        }
+        status_code = 500
+    
     return jsonify(resultado), status_code
