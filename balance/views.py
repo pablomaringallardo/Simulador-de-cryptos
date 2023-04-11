@@ -1,6 +1,5 @@
 from datetime import datetime
-from flask import jsonify, render_template, request
-import json
+from flask import flash, jsonify, render_template, request
 from . import app, APIKEY
 from .forms import CryptoForm
 from .models import APIConnect, DBConnect
@@ -155,20 +154,47 @@ def conversion():
         form = CryptoForm(data=json)
 
         if form.validate():
-            
+
+            # Consulta a la BBDD para ver cuantas monedas tengo
+            db = DBConnect(RUTA)
+            consulta = 'SELECT monedaFrom, cantidadFrom, monedaTo, cantidadTo FROM Movimientos'
+            inversiones = db.consultaSQL(consulta)
+            cryptos = ['BTC', 'ETH', 'USDT', 'ADA',
+                   'SOL', 'XRP', 'DOT', 'DOGE', 'SHIB']
+            monedas = {}
+
+            for crypto in cryptos:
+                moneda_obtenida = 0
+                moneda_invertida = 0
+                for inv in inversiones:
+                    if inv['monedaTo'] == crypto:
+                        moneda_obtenida += inv['cantidadTo']
+                    if inv['monedaFrom'] == crypto:
+                        moneda_invertida += inv['cantidadFrom']
+
+                total_moneda = moneda_obtenida - moneda_invertida
+                monedas[crypto] = total_moneda
+
             monedaFrom = form.monedaFrom.data
             cantidadFrom = form.cantidadFrom.data
             monedaTo = form.monedaTo.data
+            
+            if cantidadFrom > monedas.get(monedaFrom, 0):
+                resultado =  {
+                    'status': 'error',
+                    'message': 'No tienes suficientes monedas para realizar la inversión.'
+                }
+                status_code = 400
+            else: 
+                conexionApi = APIConnect()
+                cambio = conexionApi.consultar_cambio(monedaFrom, monedaTo)
+                cantidadTo = cantidadFrom * cambio
 
-            conexionApi = APIConnect()
-            cambio = conexionApi.consultar_cambio(monedaFrom, monedaTo)
-            cantidadTo = cantidadFrom * cambio
-
-            resultado = {
-                'status': 'success',
-                'results': cantidadTo
-            }
-            status_code = 200
+                resultado = {
+                    'status': 'success',
+                    'results': cantidadTo
+                }
+                status_code = 200
 
         else:
             resultado = {
