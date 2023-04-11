@@ -59,30 +59,20 @@ class DBConnect:
 
         return self.inversiones
     
-    # def mostrarInversiones(self):
-    #     consulta = 'SELECT date, time, monedaFrom, cantidadFrom, monedaTo, cantidadTo FROM Movimientos'
-    #     conexion = sqlite3.connect(self.ruta)
-    #     cursor = conexion.cursor()
-    #     cursor.execute(consulta)
-    #     datos = cursor.fetchall()
+    def consultaConParametros(self, consulta, params):
+        conexion = sqlite3.connect(self.ruta)
+        cursor = conexion.cursor()
 
-    #     self.inversiones = []
-    #     nombres_columna = []
-    #     for columna in cursor.description:
-    #         nombres_columna.append(columna[0])
+        resultado = False
+        try:
+            cursor.execute(consulta, params)
+            conexion.commit()
+            resultado = True
+        except:
+            conexion.rollback()
 
-    #     for dato in datos:
-    #         indice = 0
-    #         inversion = {}
-    #         for nombre in nombres_columna:
-    #             inversion[nombre] = dato[indice]
-    #             indice += 1
-
-    #         self.inversiones.append(inversion)
-        
-    #     conexion.close()
-
-    #     return self.inversiones
+        conexion.close()
+        return resultado
 
     
 
