@@ -26,7 +26,7 @@ header {
 }
 
 .nav-link:hover {
-    color: blueviolet !important;
+    color: #ffc107 !important;
     scale: 1.1;
     transition: 0.5s;
 }
@@ -47,7 +47,13 @@ header {
     margin-right: 25%;
 }
 
-.titulos {
+.titulo-pagina {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+.titulos-status {
     text-align: center;
 }
 
@@ -59,4 +65,19 @@ header {
 
 .hidden {
     display: none !important;
+}
+
+.mensaje-vacio {
+    text-align: center;
+    font-style: italic;
+}
+
+.seccion-uno {
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.seccion-dos {
+    margin-top: 1.5rem;
+    margin-bottom: 3rem;
 }
