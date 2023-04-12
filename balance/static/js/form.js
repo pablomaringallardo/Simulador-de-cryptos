@@ -7,7 +7,6 @@ botonCalcular.addEventListener('click', sendFormCalculate);
 function sendForm(event) {
     event.preventDefault();
     const formData = new FormData(form);
-    console.log('formData', formData);
     const jsonData = {};
 
     formData.forEach((value, key) => jsonData[key] = value);
@@ -25,6 +24,8 @@ function sendForm(event) {
         
     }).then(
         (response) => { return response.json(); }
+    ).then(
+        location.href = '/'
     ).catch(
         (error) => console.error('ERROR!', error)
     );
@@ -34,12 +35,10 @@ function sendFormCalculate(event) {
     event.preventDefault()
 
     const formData = new FormData(form);
-    console.log('formData', formData);
     const jsonData = {};
 
     formData.forEach((value, key) => jsonData[key] = value);
     const monedaTo = jsonData.monedaTo
-    console.log('hola', monedaTo);
 
     if (jsonData.monedaFrom === jsonData.monedaTo) {
         alert('No puedes invertir a la misma moneda.')
@@ -69,13 +68,13 @@ function sendFormCalculate(event) {
         (error) => {
             console.error('ERROR!', error);
             document.getElementById('error-message').textContent = error.message;
-            document.getElementById("error-message").classList.add('alert', 'alert-danger');
+            document.getElementById('error-message').classList.add('alert', 'alert-danger');
             document.getElementById('error-message').setAttribute('role', 'alert');
             setTimeout(() => {
-            document.getElementById('error-message').textContent = ''; // Eliminamos el mensaje de error después de 5 segundos
+            document.getElementById('error-message').textContent = '';
             document.getElementById('error-message').classList.remove('alert', 'alert-danger');
             document.getElementById('error-message').removeAttribute('role');
-            }, 8000); // Esperamos 5 segundos (5000 milisegundos) antes de eliminar el mensaje de error
+            }, 8000);
         }
     );
 
