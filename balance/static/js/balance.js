@@ -28,11 +28,16 @@ function mostrarInversiones() {
 
         const tabla = document.querySelector("#cuerpo-tabla");
         tabla.innerHTML = html;
-    } else {
-        alert('Error al mostrar las inversiones.');
-    };
-};
 
+    } else {
+        let html = '';
+            html = `
+            <tr class='bg-light'><td colspan="7" class="text-secondary mensaje-vacio" >No existen inversiones en la base de datos.</td></tr>
+            `
+        const tabla = document.getElementById('cuerpo-tabla');
+        tabla.innerHTML = html;
+};
+}
 window.onload = function () {
     peticion.onload = mostrarInversiones;
     cargarInversiones();
