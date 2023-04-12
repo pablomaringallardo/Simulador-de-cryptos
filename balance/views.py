@@ -179,12 +179,23 @@ def conversion():
             cantidadFrom = form.cantidadFrom.data
             monedaTo = form.monedaTo.data
             
-            if cantidadFrom > monedas.get(monedaFrom, 0):
-                resultado =  {
-                    'status': 'error',
-                    'message': 'No tienes suficientes monedas para realizar la inversión.'
-                }
-                status_code = 400
+            if monedaFrom != 'EUR':
+                if cantidadFrom > monedas.get(monedaFrom, 0):
+                    resultado =  {
+                        'status': 'error',
+                        'message': 'No tienes suficientes monedas para realizar la inversión.'
+                    }
+                    status_code = 400
+                else: 
+                    conexionApi = APIConnect()
+                    cambio = conexionApi.consultar_cambio(monedaFrom, monedaTo)
+                    cantidadTo = cantidadFrom * cambio
+
+                    resultado = {
+                        'status': 'success',
+                        'results': cantidadTo
+                    }
+                    status_code = 200
             else: 
                 conexionApi = APIConnect()
                 cambio = conexionApi.consultar_cambio(monedaFrom, monedaTo)
