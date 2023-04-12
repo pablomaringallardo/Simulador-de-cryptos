@@ -210,7 +210,7 @@ def conversion():
         else:
             resultado = {
                 'status': 'error',
-                'message': 'Los datos no son válidos.'
+                'message': 'Debes introducir una cantidad para realizar la conversión.'
             }
             status_code = 400
     except:

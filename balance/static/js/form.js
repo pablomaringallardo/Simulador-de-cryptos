@@ -1,11 +1,16 @@
+let spinner;
+spinner = document.querySelector('#spinner');
 const form = document.getElementById('inv-form');
 const botonEnviar = document.getElementById('boton-enviar');
 const botonCalcular = document.getElementById('boton-calcular');
 botonEnviar.addEventListener('click', sendForm);
 botonCalcular.addEventListener('click', sendFormCalculate);
+spinner.classList.add('off')
+
 
 function sendForm(event) {
     event.preventDefault();
+    spinner.classList.remove('off')
     const formData = new FormData(form);
     const jsonData = {};
 
@@ -25,7 +30,9 @@ function sendForm(event) {
     }).then(
         (response) => { return response.json(); }
     ).then(
-        location.href = '/'
+        location.href = '/',
+        spinner.classList.add('off')
+
     ).catch(
         (error) => console.error('ERROR!', error)
     );
@@ -33,7 +40,7 @@ function sendForm(event) {
 
 function sendFormCalculate(event) {
     event.preventDefault()
-
+    spinner.classList.remove('off');
     const formData = new FormData(form);
     const jsonData = {};
 
@@ -42,6 +49,7 @@ function sendFormCalculate(event) {
 
     if (jsonData.monedaFrom === jsonData.monedaTo) {
         alert('No puedes invertir a la misma moneda.')
+        spinner.classList.add('off')
     } else {
         fetch('http://127.0.0.1:5000/api/v1/calcular', {
         method: 'POST',
@@ -53,16 +61,16 @@ function sendFormCalculate(event) {
         (response) => { 
             if (response.ok) {
                 return response.json();
-            } else {
+             } else {
                 throw new Error('No tienes suficientes monedas para realizar la inversión.');
             }
         }
     ).then(
         (data) => {
-            console.log('Resultado:', data.results);
             const cambio = data.results.toFixed(4)
             document.getElementById('cantidadTo').textContent = 'Usted recibirá ' + cambio + ' ' + monedaTo;
             botonEnviar.classList.remove('hidden');
+            spinner.classList.add('off')
         }
     ).catch(
         (error) => {
@@ -75,8 +83,9 @@ function sendFormCalculate(event) {
             document.getElementById('error-message').classList.remove('alert', 'alert-danger');
             document.getElementById('error-message').removeAttribute('role');
             }, 8000);
+            spinner.classList.add('off');
         }
     );
 
-}
+    }
 };

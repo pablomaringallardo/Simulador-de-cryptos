@@ -1,6 +1,8 @@
+let spinner;
 const peticion = new XMLHttpRequest();
 
 function cargarEstados() {
+    spinner.classList.remove('off');
     peticion.open('GET', 'http://127.0.0.1:5000/api/v1/estado', true);
     peticion.send();
 };
@@ -21,9 +23,11 @@ function mostrarEstados() {
         }
         console.log(estados.total_euros_invertidos);
     }
+    spinner.classList.add('off')
 };
 
 window.onload = function () {
+    spinner = document.querySelector('#spinner');
     peticion.onload = mostrarEstados;
     cargarEstados();
 };

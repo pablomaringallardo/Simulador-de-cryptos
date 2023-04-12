@@ -1,6 +1,8 @@
+let spinner;
 const peticion = new XMLHttpRequest();
 
 function cargarInversiones() {
+    spinner.classList.remove('off');
     peticion.open('GET', 'http://127.0.0.1:5000/api/v1/inversiones', true);
     peticion.send();
 };
@@ -36,9 +38,13 @@ function mostrarInversiones() {
             `
         const tabla = document.getElementById('cuerpo-tabla');
         tabla.innerHTML = html;
-};
+    };
+
+    spinner.classList.add('off')
+
 }
 window.onload = function () {
+    spinner = document.querySelector('#spinner');
     peticion.onload = mostrarInversiones;
     cargarInversiones();
     
