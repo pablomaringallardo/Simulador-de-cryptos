@@ -47,30 +47,26 @@ function sendFormCalculate(event) {
     formData.forEach((value, key) => jsonData[key] = value);
     const monedaTo = jsonData.monedaTo
 
-    if (jsonData.monedaFrom === jsonData.monedaTo) {
-        alert('No puedes invertir a la misma moneda.')
-        spinner.classList.add('off')
-    } else {
-        fetch('http://127.0.0.1:5000/api/v1/calcular', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jsonData)
+
+    fetch('http://127.0.0.1:5000/api/v1/calcular', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(jsonData)  
     }).then(
-        (response) => { 
-            if (response.ok) {
+        (response) => {
                 return response.json();
-             } else {
-                throw new Error('No tienes suficientes monedas para realizar la inversión.');
-            }
         }
     ).then(
         (data) => {
+            if (data.status == 'error') {
+                throw new Error (data.message)
+            }
             const cambio = data.results.toFixed(4)
             document.getElementById('cantidadTo').textContent = 'Usted recibirá ' + cambio + ' ' + monedaTo;
             botonEnviar.classList.remove('hidden');
-            spinner.classList.add('off')
+            spinner.classList.add('off');
         }
     ).catch(
         (error) => {
@@ -86,6 +82,4 @@ function sendFormCalculate(event) {
             spinner.classList.add('off');
         }
     );
-
-    }
 };
