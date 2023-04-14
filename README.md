@@ -43,7 +43,10 @@ Proyecto final BC14: Pablo Marín Gallardo
    la variable `DEBUG` con el valor `False`. Introduce
    también tu SECRET KEY
 
-6. Con el entorno virtual activo, lanzar la aplicación
+6. Haz una copia del archivo config.sample.py como
+   config.py.
+
+7. Con el entorno virtual activo, lanzar la aplicación
 
    ```shell
    flask run
