@@ -24,7 +24,7 @@ function mostrarInversiones() {
                     <td>${inv.cantidadFrom}</td>
                     <td>${inv.monedaTo}</td>
                     <td>${inv.cantidadTo}</td>
-                    <td>${inv.rate}</td>
+                    <td>${inv.rate.toFixed(5)}</td>
             `
         };
 
@@ -33,7 +33,7 @@ function mostrarInversiones() {
 
     } else {
         let html = '';
-            html = `
+        html = `
             <tr class='bg-light'><td colspan="7" class="text-secondary mensaje-vacio" >No existen inversiones en la base de datos.</td></tr>
             `
         const tabla = document.getElementById('cuerpo-tabla');
@@ -47,5 +47,5 @@ window.onload = function () {
     spinner = document.querySelector('#spinner');
     peticion.onload = mostrarInversiones;
     cargarInversiones();
-    
+
 };

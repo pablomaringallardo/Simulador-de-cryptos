@@ -190,7 +190,7 @@ def conversion():
                     if cantidadFrom > monedas.get(monedaFrom, 0):
                         resultado =  {
                             'status': 'error',
-                            'message': 'No tienes suficientes monedas para realizar la inversión.'
+                            'message': 'No tienes suficientes monedas para realizar la inversión. Comprueba tu saldo en Status.'
                         }
                         status_code = 400
                     else: 
