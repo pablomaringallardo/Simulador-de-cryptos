@@ -40,11 +40,10 @@ Proyecto final BC14: Pablo Marín Gallardo
 
 5. Editar el archivo `.env` y cambiar los valores de
    entorno necesarios. Por motivos de seguridad, dejar
-   la variable `DEBUG` con el valor `False`. Introduce
-   también tu SECRET KEY
+   la variable `DEBUG` con el valor `False`.
 
 6. Haz una copia del archivo config.sample.py como
-   config.py.
+   config.py e introduce tu SECRET KEY.
 
 7. Con el entorno virtual activo, lanzar la aplicación
 
