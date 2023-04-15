@@ -32,10 +32,10 @@ Proyecto final BC14: Pablo Marín Gallardo
 
    ```shell
    # Windows
-   copy .env_template .env
+   copy .env-template .env
 
    # Mac / Linux
-   cp .env_template .env
+   cp .env-template .env
    ```
 
 5. Editar el archivo `.env` y cambiar los valores de
